@@ -7,18 +7,19 @@ A basic Python chat bot built using chatterbox
 
 import time
 from pathlib import Path
-from chatterbot.trainers import ListTrainer 
+from chatterbot.trainers import ListTrainer
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot import ChatBot
 
-bot = ChatBot('Nori',
-        logic_adapters=[
-        'chatterbot.logic.MathematicalEvaluation',
-        'chatterbot.logic.TimeLogicAdapter'
-        ],
-    storage_adapter='chatterbot.storage.SQLStorageAdapter')
-list_trainer = ListTrainer(bot)
-corpus_trainer = ChatterBotCorpusTrainer(bot)
+nori = ChatBot('Nori',
+              logic_adapters=[
+                  'chatterbot.logic.MathematicalEvaluation',
+                  'chatterbot.logic.TimeLogicAdapter'
+              ],
+              storage_adapter='chatterbot.storage.SQLStorageAdapter')
+list_trainer = ListTrainer(nori)
+corpus_trainer = ChatterBotCorpusTrainer(nori)
+
 
 def main():
     """
@@ -53,7 +54,7 @@ def create():
 
 
 def get_feedback():
-    
+
     text = input()
 
     if 'yes' in text.lower():
@@ -77,7 +78,7 @@ def chat():
     while True:
         try:
             user_input = input('You: ')
-            bot_response = bot.get_response(user_input)
+            bot_response = nori.get_response(user_input)
             print("Nori: {}".format(bot_response))
 
         # Press ctrl-c or ctrl-d on the keyboard to exit

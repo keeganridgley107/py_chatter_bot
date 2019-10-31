@@ -109,3 +109,5 @@ pyvenv.cfg
 # Dev 
 bin/
 lib/
+pip-selfcheck.json
+*.pickle

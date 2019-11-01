@@ -17,7 +17,6 @@ import random
 nori = ChatBot('Nori',
                storage_adapter='chatterbot.storage.SQLStorageAdapter',
                logic_adapters=[
-                   'chatterbot.logic.MathematicalEvaluation',
                    'chatterbot.logic.BestMatch'
                ],
                database_uri='sqlite:///database.db')
@@ -26,13 +25,14 @@ corpus_trainer = ChatterBotCorpusTrainer(nori)
 logger = logging.getLogger() 
 logger.setLevel(logging.CRITICAL)
 
+
 def main():
     """
     main function in py_chatter_bot
 
     """
 
-    print("\n\nCreating and training NoriChat...\n")
+    print("\n\nCreating and training NoriChat...")
     create()
     print('Nori is ready to chat!')
     chat()
@@ -46,8 +46,8 @@ def create():
 
     use_custom = input("\nUse custom corpus? y/n\n")
     if use_custom == "y":
-        print("\nPlease type the list corpus filename below\n")
-        print("\nMust be a list format txt file located in /assets\n")
+        print("\nPlease type the list corpus filename below")
+        print("Must be a list format txt file located in /assets\n")
         time.sleep(.4)
         corpus_filename = input("Filename:>  ") + ".txt"
         data_folder = Path("assets/")
@@ -94,11 +94,10 @@ def chat():
 
             # get feedback every few questions
             r_int = random.randint(0, 10)
-            print("rand num: {}".format(r_int))
             if r_int < 9:
                 print("Nori: {}".format(response))
             else:
-                print('\n Is "{}" a coherent response to "{}"? \n'.format(
+                print('\n Is "{}" a coherent response to "{}"? y/n\n'.format(
                     response.text,
                     input_statement.text
                 ))
@@ -107,19 +106,8 @@ def chat():
                     correct_response = Statement(text=input())
                     nori.learn_response(correct_response, input_statement)
                     print('Responses added to bot!')
-
-        # Press ctrl-c or ctrl-d on the keyboard to exit
         except (KeyboardInterrupt, EOFError, SystemExit):
             break
-    #while True:
-    #    try:
-    #        user_input = input('You: ')
-    #        bot_response = nori.get_response(user_input)
-    #        print("Nori: {}".format(bot_response))
-    #
-    #    # Press ctrl-c or ctrl-d on the keyboard to exit
-    #    except (KeyboardInterrupt, EOFError, SystemExit):
-    #        break
 
 
 if __name__ == '__main__':

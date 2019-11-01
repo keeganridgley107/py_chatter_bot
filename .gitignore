@@ -111,3 +111,5 @@ bin/
 lib/
 pip-selfcheck.json
 *.pickle
+database.db
+.vscode
